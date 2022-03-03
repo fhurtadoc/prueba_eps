@@ -1,0 +1,31 @@
+<div class="step-progress">
+    <div class="container">
+        <ng-container *ngFor="let item of itemProgressList; index as i">
+            <div class="check-box" [ngClass]="{
+                    'complete': item.status === 'completo',
+                    'active': item.status === 'en proceso'
+                }">                
+                <svg id="checkbox" viewBox="0 0 100 100">
+                    <circle class="circle" cx="50.5" cy="49" r="45" />
+                    <polyline class="check" points="28.5,51.9 41.9,65.3 72.5,32.8 " />
+                </svg>            
+                <div class="progress-line">
+                    <div class="progres-percent"></div>
+                    <div class="info">
+                        <span class="step">Paso {{i+1}}</span>
+                        <span class="progress-info"
+                        [ngClass]="{
+                            'completed': item.status === 'completo',
+                            'in-progress': item.status === 'en proceso'
+                        }"
+                        >{{item.status}}</span>
+                    </div>
+                </div>
+            </div>
+        </ng-container>        
+    </div>
+</div>
+
+<div class="schedule-content">
+    <ng-content select="app-step-schedule" ></ng-content>
+</div>

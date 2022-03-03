@@ -1,0 +1,62 @@
+<app-schedule>
+    <app-step-schedule>
+      <p>
+        En esta lista encontrara las principales especialidades con las que actualmente contamos          
+        <br>
+        <mat-form-field appearance="fill">           
+          <mat-label>Seleccione una Especialidad</mat-label>         
+          <mat-select [(ngModel)]="date.id_Specialty">
+            <mat-option value="option1">Option 1</mat-option>
+            <mat-option *ngFor="let special of allSpecialty" [value]="special.id"> {{special.name}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <button mat-button color="primary" progressStepNext (click)="filterDoc()">Siguiente Paso</button>        
+      </p>
+    </app-step-schedule>
+    <app-step-schedule>
+      <p>
+        <p>Por favor selecciona una fecha en el calendario para su cita</p>
+        <mat-form-field appearance="fill">          
+          <mat-label>Seleccionar una fecha</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="date.date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <br>      
+      <button mat-button color="primary" progressStepNext >Siguiente Paso</button>        
+      <button mat-button color="accent" progressStepPrev >Volver</button>        
+    </app-step-schedule>
+    <app-step-schedule>
+      <p>Tipo de Servicio </p>
+      <section class="example-section">
+        <label for="type"  >Tipo de Cita</label>
+        <br>
+        <label for="virtual">Virtual</label>
+        <input name="type" [(ngModel)]="date.type_date" value="presencial" type="radio">
+        <label for="presencial">Presencial</label>
+        <input name="type" [(ngModel)]="date.type_date" value="presencial" type="radio">
+        <label for="domicilio">Domicilio</label>
+        <input name="type" [(ngModel)]="date.type_date" value="domicilio" type="radio">
+      </section>      
+      <button mat-button color="primary" progressStepNext >Siguiente Paso</button>        
+      <button mat-button color="accent" progressStepPrev >Volver</button>        
+    </app-step-schedule>
+    <app-step-schedule>
+      <p>Doctores Disponibles</p>
+      <table id="table_filterDoct">
+        <thead>
+          <td>Nombre</td>
+          <td>Especialidad</td>
+        </thead>        
+        <tr *ngFor="let doct_filter of filter_Doctors" id="rowButton">
+          <td>{{doct_filter.name}} </td>
+          <td>{{doct_filter.specialty.name}}</td> 
+          <td><button (click)="select_doct(doct_filter.name, doct_filter.id)" progressStepNext  mat-button color="warn">seleccionar</button></td>  
+        </tr>
+      </table>
+      
+      <button mat-button color="primary" (click)="generar_cita()" >Generar su cita</button>        
+      <button mat-button color="accent" progressStepPrev >Volver</button>        
+    </app-step-schedule>
+</app-schedule> 
